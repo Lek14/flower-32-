@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Flowers</title>
+</head>
+<body>
+    <h1>All Flowers</h1>
+    <ul>
+        {% for flower in flowers %}
+        <li>{{ flower.name }} - {{ flower.type }} - {{ flower.country }} - {{ flower.blooming_season }} - {{ flower.variant }} - {{ flower.price }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Go back</a>
+</body>
+</html>
