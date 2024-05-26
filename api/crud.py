@@ -63,7 +63,7 @@ def delete_flower(
     deletion_flower_query = (
         select(FlowerSupplierAssosiation)
         .where(
-            FlowerSupplierAssosiation.supllaer_id == supplier.id
+            FlowerSupplierAssosiation.supplier_id == supplier.id
             and FlowerSupplierAssosiation.id  == flower.id
         )
     )
@@ -108,12 +108,11 @@ def get_seasonal_country(
     return session.query(Flowers).where(Flowers.country == country).all()
 
 
-def get_vendors(
-    sort: bool,
-    variant: str,
-    session: Session,
+def get_vendor_by_sort(
+        sort: bool,
+        variant: str,
+        session: Session,
 ):
-
     stmt = (
         select(Vendors)
         .join(
@@ -133,7 +132,7 @@ def get_vendors(
             FlowerSupplierAssosiation.flower_id == Flowers.id
         )
     )
-    
+
     if variant:
         stmt = stmt.where(Flowers.variant == variant)
 
@@ -142,7 +141,17 @@ def get_vendors(
             desc(Flowers.price)
         )
 
-
     return session.execute(stmt).scalars().all()
 
 
+def get_matching_suppliers(session: Session, vendor_id: int):
+    # Find all suppliers for the given vendor
+    supplier_ids = session.query(VenderSupllaerAssosion.supplier_id).filter(
+        VenderSupllaerAssosion.vendor_id == vendor_id).all()
+    supplier_ids = [supplier_id[0] for supplier_id in supplier_ids]  # Extract the supplier IDs from the tuples
+
+    # Find all vendors that share the same suppliers
+    shared_suppliers = session.query(Suppliers).join(VenderSupllaerAssosion).filter(
+        VenderSupllaerAssosion.supplier_id.in_(supplier_ids)).all()
+
+    return shared_suppliers
