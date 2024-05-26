@@ -15,7 +15,6 @@ from core.config import get_session
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
-app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(router=router)
 
 
