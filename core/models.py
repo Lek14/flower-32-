@@ -24,7 +24,7 @@ class Flowers(Base):
 class FlowerSupplierAssosiation(Base):
     __tablename__ = "flower_supplier_association"
 
-    id: Mapped[str] = mapped_column(Integer, primary_key=True)
+    id: Mapped[bool] = mapped_column(Integer, primary_key=True)
     supplier_id: Mapped[int] = mapped_column(ForeignKey("suppliers.id"))
     flower_id: Mapped[int] = mapped_column(ForeignKey("flowers.id"))
 
