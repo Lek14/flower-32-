@@ -34,7 +34,7 @@ def create_flower(
 
 
 @router.delete(
-    "/delete_flower/{name_supplier}",
+    "/delete_flower/{name_supplier}/",
     status_code=status.HTTP_204_NO_CONTENT,
 )
 def delete_flower(
@@ -122,3 +122,12 @@ def get_vendors(
         variant=variant,
         session=session,
     )
+@router.get("/get_matching_suppliers/{vendor_id}", status_code=200)
+def get_matching_suppliers(vendor_id: int, session: Session = Depends(get_session)):
+    try:
+        matching_suppliers = api_crud.get_matching_suppliers(session=session, vendor_id=vendor_id)
+        if not matching_suppliers:
+            raise HTTPException(status_code=404, detail="No matching suppliers found")
+        return matching_suppliers
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
