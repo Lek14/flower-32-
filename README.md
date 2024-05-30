@@ -32,7 +32,8 @@
   - Update: Конечные точки для обновления существующих записей.
   - Delete: Конечные точки для удаления записей.
 
-![image](https://github.com/Lek14/flower-32-/assets/125027733/f50a2a85-a7ce-4d9e-a529-6c742f0f7258)
+![image](https://github.com/Lek14/flower-32-/assets/125027733/83bddcb3-09f0-4722-a90c-8fcbae6c783b)
+
 
 ERD
 
